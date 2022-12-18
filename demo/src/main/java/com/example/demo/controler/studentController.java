@@ -27,6 +27,10 @@ public class studentController {
     public void addStudent(@RequestBody Student student) {
         studentService.addStudent(student);
     }
+    @PostMapping("/api/v1/students")
+    public void addStudents(@RequestBody List<Student> students) {
+        studentService.addStudents(students);
+    }
 
     @DeleteMapping(path = "/{studentId}")
     public void deleteStudent(@PathVariable("studentId") Long studentId) {

@@ -15,7 +15,7 @@ public class Student {
     private String name;
     private String email;
     private LocalDate dob;
-    @Transient
+    @Transient //The transient keyword is primarily meant for ignoring fields during Java object serialization
     private Integer age;
 
     public Student() {
