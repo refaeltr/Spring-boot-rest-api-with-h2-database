@@ -5,7 +5,9 @@ import com.example.demo.exceptions.StudentIdMismatchException;
 import com.example.demo.model.Student;
 import com.example.demo.repository.StudentRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Objects;
@@ -41,39 +43,46 @@ public class StudentService {
     }
 
     public void deleteStudentId(Long studentId) {
-        Student student = studentRepository.findById(studentId).orElseThrow(StudentIdMismatchException::new);
-        /*
-        boolean exist = studentRepository.existsById(studentId);
-        if (!exist) {
-            throw new IllegalStateException("student with id" + studentId + "does not exist");
-        }
+        // Student student = studentRepository.findById(studentId).orElseThrow(StudentIdMismatchException::new);
 
-         */
+        //boolean exist = studentRepository.existsById(studentId);
+        if (!studentRepository.existsById(studentId)) {
+            // throw new IllegalStateException("student with id" + studentId + "does not exist");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "student with id " + studentId + " does not exist");
+        }
         studentRepository.deleteById(studentId);
     }
 
     @Transactional
     public void updateStudent(Long studentId, String name, String email) {
-        Student student = studentRepository.findById(studentId).orElseThrow(StudentIdMismatchException::new);
+        // Student student = studentRepository.findById(studentId).orElseThrow(StudentIdMismatchException::new);
+
         /*
         Student student = studentRepository.findById(studentId).orElseThrow(
                 () -> new IllegalStateException("student with id" + studentId + "does not exist"));
 
+
          */
+
+//---
+        Student student = studentRepository.findById(studentId).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "ID Not Found"));
+
+
         if (name != null && name.length() > 0
                 && !Objects.equals(student.getName(), name)) {
             student.setName(name);
         }
         if (email != null && email.length() > 0
                 && !Objects.equals(student.getEmail(), email)) {
-            Student student1 = studentRepository.findByEmail(email).orElseThrow(StudentEmailMismatchException::new);
-            /*
+            // Student student1 = studentRepository.findByEmail(email).orElseThrow(StudentEmailMismatchException::new);
+
             Optional<Student> studentOptional = studentRepository.findByEmail(email);
             if (studentOptional.isPresent()) {
-                throw new IllegalStateException("email taken");
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "email taken");
             }
 
-             */
+
             student.setEmail(email);
         }
 
