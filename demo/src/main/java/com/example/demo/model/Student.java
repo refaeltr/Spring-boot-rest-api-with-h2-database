@@ -8,7 +8,7 @@ import java.time.Period;
 
 @Entity
 @Table
-public class Student {//fdgdfgdfg
+public class Student {
    @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
