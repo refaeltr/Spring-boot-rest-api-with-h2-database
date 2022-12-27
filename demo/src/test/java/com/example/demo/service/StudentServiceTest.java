@@ -16,11 +16,11 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
+
 
 class StudentServiceTest {
 
@@ -28,12 +28,12 @@ class StudentServiceTest {
     @Mock
     private StudentRepository studentRepository;
     private AutoCloseable autoCloseable;
-    private StudentService underTest;
+    private StudentService studentServiceUnderTest;
 
     @BeforeEach
     void setUp() {
         autoCloseable = MockitoAnnotations.openMocks(this);
-        underTest = new StudentService(studentRepository);
+        studentServiceUnderTest = new StudentService(studentRepository);
     }
 
     @AfterEach
@@ -44,11 +44,10 @@ class StudentServiceTest {
     @Test
     void getStudents() {
         //when
-        underTest.getStudents();
+        studentServiceUnderTest.getStudents();
 
         //then
         verify(studentRepository).findAll();
-
 
     }
 
@@ -63,7 +62,7 @@ class StudentServiceTest {
         );
 
         //when
-        underTest.addStudent(student);
+        studentServiceUnderTest.addStudent(student);
 
         //then
         ArgumentCaptor<Student> studentArgumentCaptor =
@@ -88,7 +87,7 @@ class StudentServiceTest {
                 .willReturn(Optional.of(student));
         //when
         //then
-        assertThatThrownBy(() -> underTest.addStudent(student))
+        assertThatThrownBy(() -> studentServiceUnderTest.addStudent(student))
                 .isInstanceOf(StudentEmailMismatchException.class);
         //.hasMessageContaining("my error: this email is already taken");
 
@@ -115,7 +114,7 @@ class StudentServiceTest {
         given(studentRepository.existsById(student1.getId()))
                 .willReturn(true);
 
-        underTest.deleteStudentId(student1.getId());
+        studentServiceUnderTest.deleteStudentId(student1.getId());
          //when
         //then
         ArgumentCaptor<Long> idArgumentCaptor =

@@ -4,10 +4,10 @@ import com.example.demo.exceptions.StudentEmailMismatchException;
 import com.example.demo.exceptions.StudentIdMismatchException;
 import com.example.demo.model.Student;
 import com.example.demo.repository.StudentRepository;
-import jakarta.transaction.Transactional;
-import org.springframework.http.HttpStatus;
+import jakarta.validation.ConstraintViolationException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Objects;
@@ -17,13 +17,17 @@ import java.util.Optional;
 public class StudentService {
     private final StudentRepository studentRepository;
 
+    @Autowired
     public StudentService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
 
     public List<Student> getStudents() {
         return studentRepository.findAll();
+    }
 
+    public Optional<Student> getStudent(Long id) {
+        return studentRepository.findById(id);
     }
 
     public void addStudent(Student student) {
@@ -43,50 +47,41 @@ public class StudentService {
     }
 
     public void deleteStudentId(Long studentId) {
-        // Student student = studentRepository.findById(studentId).orElseThrow(StudentIdMismatchException::new);
-
-        //boolean exist = studentRepository.existsById(studentId);
-        if (!studentRepository.existsById(studentId)) {
-            // throw new IllegalStateException("student with id" + studentId + "does not exist");
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "student with id " + studentId + " does not exist");
+        try {
+            studentRepository.deleteById(studentId);
+        } catch (EmptyResultDataAccessException e) {
+            throw new StudentIdMismatchException();
         }
-        studentRepository.deleteById(studentId);
     }
 
-    @Transactional
-    public void updateStudent(Long studentId, String name, String email) {
-        // Student student = studentRepository.findById(studentId).orElseThrow(StudentIdMismatchException::new);
 
-        /*
-        Student student = studentRepository.findById(studentId).orElseThrow(
-                () -> new IllegalStateException("student with id" + studentId + "does not exist"));
+    public Student updateStudentEmail(Long studentId, String email) throws StudentIdMismatchException, ConstraintViolationException {
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(StudentIdMismatchException::new);
 
+        if (email != null && email.length() > 0
+                && !Objects.equals(student.getEmail(), email)) {
+            student.setEmail(email);
+            studentRepository.save(student);
+        }
+        return student;
+    }
 
-         */
-
-//---
-        Student student = studentRepository.findById(studentId).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "ID Not Found"));
-
+    public Student updateStudentName(Long studentId, String name) throws StudentIdMismatchException, RuntimeException {
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(StudentIdMismatchException::new);
 
         if (name != null && name.length() > 0
                 && !Objects.equals(student.getName(), name)) {
             student.setName(name);
         }
-        if (email != null && email.length() > 0
-                && !Objects.equals(student.getEmail(), email)) {
-            // Student student1 = studentRepository.findByEmail(email).orElseThrow(StudentEmailMismatchException::new);
 
-            Optional<Student> studentOptional = studentRepository.findByEmail(email);
-            if (studentOptional.isPresent()) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "email taken");
-            }
-
-
-            student.setEmail(email);
+        try {
+            studentRepository.save(student);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
 
+        return student;
     }
-
-
 }

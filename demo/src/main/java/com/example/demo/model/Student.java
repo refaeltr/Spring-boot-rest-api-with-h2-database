@@ -1,8 +1,5 @@
 package com.example.demo.model;
-
 import jakarta.persistence.*;
-
-
 import java.time.LocalDate;
 import java.time.Period;
 
@@ -13,6 +10,7 @@ public class Student {
    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
+    //@Size(min = 1, max = 20)
     private String email;
     private LocalDate dob;
     @Transient //The transient keyword is primarily meant for ignoring fields during Java object serialization
