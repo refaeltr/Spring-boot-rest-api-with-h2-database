@@ -3,6 +3,7 @@ package com.example.demo.controler;
 import com.example.demo.model.Student;
 import com.example.demo.service.StudentService;
 import jakarta.validation.ConstraintViolationException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -11,15 +12,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/lala")
+@RequiredArgsConstructor
 public class StudentController {
     private final StudentService studentService;
-
-    @Autowired
-    public StudentController(StudentService studentService) {
-        this.studentService = studentService;
-    }
-
-
     @GetMapping("/api/v1/students")
     public List<Student> getStudents() {
         return studentService.getStudents();
@@ -27,7 +22,7 @@ public class StudentController {
 
     @GetMapping("/api/v1/student/{studentId}")
     public Student getStudentById(@PathVariable("studentId") Long studentId) {
-        return studentService.getStudent(studentId).get();
+        return studentService.getStudent(studentId);
     }
 
 

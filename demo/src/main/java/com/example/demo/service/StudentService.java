@@ -26,8 +26,8 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
-    public Optional<Student> getStudent(Long id) {
-        return studentRepository.findById(id);
+    public Student getStudent(Long id) {
+        return studentRepository.findById(id).orElseThrow(StudentIdMismatchException::new);
     }
 
     public void addStudent(Student student) {

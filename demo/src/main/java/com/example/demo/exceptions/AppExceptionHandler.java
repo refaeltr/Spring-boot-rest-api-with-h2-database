@@ -1,6 +1,7 @@
 package com.example.demo.exceptions;
 
 import jakarta.validation.ConstraintViolationException;
+import lombok.NoArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -17,28 +18,24 @@ The@ControllerAdvice annotation allows us to consolidate our multiple,
  scattered @ExceptionHandlers from before into a single, global error handling component.
  */
 @ControllerAdvice
+@NoArgsConstructor
 public class AppExceptionHandler extends ResponseEntityExceptionHandler {
-    public AppExceptionHandler() {
-        super();
-    }
-
     @ExceptionHandler({StudentEmailMismatchException.class})
-    protected ResponseEntity<Object> handleEmailMismatch(
-            Exception ex, WebRequest request) {
-        return handleExceptionInternal(ex, "my error: this email is already taken",
-                new HttpHeaders(), HttpStatus.BAD_REQUEST, request); // BAD_REQUEST --> 400
+    public ProblemDetail handleEmailMismatch(StudentEmailMismatchException exception){
+        return ProblemDetail
+                .forStatusAndDetail(HttpStatus.NOT_FOUND, exception.getMessage());
     }
 
-    @ExceptionHandler({StudentIdMismatchException.class})
-    public ResponseEntity<Object> handleIdMismatchException(
-            Exception ex, WebRequest request) {
-        return handleExceptionInternal(ex, "my error: id is not in the database",
-                new HttpHeaders(), HttpStatus.NOT_FOUND, request); // NOT_FOUND --> 404
-    }
-    @ExceptionHandler(ConstraintViolationException.class)
-    public ProblemDetail handleConstraintViolationException(){
+    @ExceptionHandler(StudentIdMismatchException.class)
+    public ProblemDetail handleIdMismatchException(StudentIdMismatchException exception){
         return ProblemDetail
-                .forStatusAndDetail(HttpStatus.BAD_REQUEST, "email size validation error");
+                .forStatusAndDetail(HttpStatus.NOT_FOUND, exception.getMessage());
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ProblemDetail handleConstraintViolationException(ConstraintViolationException exception){
+        return ProblemDetail
+                .forStatusAndDetail(HttpStatus.BAD_REQUEST, exception.getMessage());
     }
 
     @Override

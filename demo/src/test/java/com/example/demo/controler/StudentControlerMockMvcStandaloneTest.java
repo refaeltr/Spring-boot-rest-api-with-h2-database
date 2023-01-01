@@ -57,7 +57,7 @@ public class StudentControlerMockMvcStandaloneTest {
     public void canRetrieveByIdWhenExists() throws Exception {
         // given
         given(studentService.getStudent(1L))
-                .willReturn(Optional.of(new Student("elizabeth", "elizabeth@gmail.com", LocalDate.of(1999, 07, 02), 23)));
+                .willReturn(new Student("elizabeth", "elizabeth@gmail.com", LocalDate.of(1999, 07, 02), 23));
 
 
         // when

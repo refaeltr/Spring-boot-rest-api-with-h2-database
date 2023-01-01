@@ -1,20 +1,10 @@
 package com.example.demo.exceptions;
 
+
+import lombok.NoArgsConstructor;
+
 public class StudentIdMismatchException extends RuntimeException {
     public StudentIdMismatchException() {
-        super();
+        super("my error: id mismatch");
     }
-
-    public StudentIdMismatchException(String message) {
-        super(message);
-    }
-
-    public StudentIdMismatchException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public StudentIdMismatchException(Throwable cause) {
-        super(cause);
-    }
-
 }
