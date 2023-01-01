@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/lala")
+@RequestMapping(path = "/Hogwarts ")
 @RequiredArgsConstructor
 public class StudentController {
     private final StudentService studentService;
@@ -44,14 +44,14 @@ public class StudentController {
 
     @PutMapping(path = "/api/v1/updateName/{studentId}")
     public Student updateStudentName(@PathVariable("studentId") Long studentId,
-                                     @RequestParam(required = true) String name
+                                     @RequestParam String name
     ) {
         return studentService.updateStudentName(studentId, name);
     }
 
     @PutMapping(path = "/api/v1/updateEmail/{studentId}")
     public Student updateStudentEmail(@PathVariable("studentId") Long studentId,
-                                      @RequestParam(required = true) String email
+                                      @RequestParam String email
     ) throws ConstraintViolationException {
         return studentService.updateStudentEmail(studentId, email);
     }
