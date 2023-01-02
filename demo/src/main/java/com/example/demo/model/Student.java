@@ -22,6 +22,13 @@ public class Student {
     @Transient //The transient keyword is primarily meant for ignoring fields during Java object serialization
     private Integer age;
 
+    public Student(String name, String email, LocalDate dob, Integer age) {
+        this.name = name;
+        this.email = email;
+        this.dob = dob;
+        this.age = age;
+    }
+
     public Integer getAge() {
         return Period.between(this.dob,LocalDate.now()).getYears();
     }

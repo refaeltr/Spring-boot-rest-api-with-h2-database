@@ -5,6 +5,6 @@ import lombok.NoArgsConstructor;
 
 public class StudentIdMismatchException extends RuntimeException {
     public StudentIdMismatchException() {
-        super("my error: id mismatch");
+        super("my error: this ID is already in the system");
     }
 }

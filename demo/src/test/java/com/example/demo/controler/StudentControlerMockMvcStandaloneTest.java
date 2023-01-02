@@ -62,7 +62,7 @@ public class StudentControlerMockMvcStandaloneTest {
 
         // when
         MockHttpServletResponse response = mvc.perform(
-                        get("/lala/api/v1/student/1")
+                        get("/Hogwarts/api/v1/student/1")
                                 .accept(MediaType.APPLICATION_JSON))
                 .andReturn()
                 .getResponse();
@@ -84,7 +84,7 @@ public class StudentControlerMockMvcStandaloneTest {
 
         // when
         MockHttpServletResponse response = mvc.perform(
-                        get("/lala/api/v1/student/2")
+                        get("/Hogwarts/api/v1/student/2")
                                 .accept(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
 
@@ -98,7 +98,7 @@ public class StudentControlerMockMvcStandaloneTest {
     public void canCreateANewStudent() throws Exception {
         // when
         MockHttpServletResponse response = mvc.perform(
-                post("/lala/api/v1/student")
+                post("/Hogwarts/api/v1/student")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(
                                 jsonStudent.write(new Student("elizabeth", "elizabeth@gmail.com",
@@ -120,7 +120,7 @@ public class StudentControlerMockMvcStandaloneTest {
 
         // when
         MockHttpServletResponse response = mvc.perform(
-                        put("/lala/api/v1/updateName/1?name=elizabeth")
+                        put("/Hogwarts/api/v1/updateName/1?name=elizabeth")
                                 .accept(MediaType.APPLICATION_JSON))
                 .andReturn()
                 .getResponse();
@@ -145,7 +145,7 @@ public class StudentControlerMockMvcStandaloneTest {
 
         // when
         MockHttpServletResponse response = mvc.perform(
-                        put("/lala/api/v1/updateEmail/1?email=elizabeth@gmail.com")
+                        put("/Hogwarts/api/v1/updateEmail/1?email=elizabeth@gmail.com")
                                 .accept(MediaType.APPLICATION_JSON))
                 .andReturn()
                 .getResponse();

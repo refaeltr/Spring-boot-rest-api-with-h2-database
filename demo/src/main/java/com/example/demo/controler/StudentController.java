@@ -11,9 +11,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/Hogwarts ")
+@RequestMapping(path = "/Hogwarts")
+//@RequiredArgsConstructor generates a constructor with 1 parameter
+// for each field that requires special handling.
 @RequiredArgsConstructor
 public class StudentController {
+
     private final StudentService studentService;
     @GetMapping("/api/v1/students")
     public List<Student> getStudents() {
@@ -25,14 +28,13 @@ public class StudentController {
         return studentService.getStudent(studentId);
     }
 
-
-    @PostMapping("/api/v1/student")
+    @PostMapping("/api/v1/addStudent")
     @ResponseStatus(HttpStatus.CREATED)
     public void addStudent(@RequestBody Student student) {
         studentService.addStudent(student);
     }
 
-    @PostMapping("/api/v1/students")
+    @PostMapping("/api/v1/addStudents")
     public void addStudents(@RequestBody List<Student> students) {
         studentService.addStudents(students);
     }

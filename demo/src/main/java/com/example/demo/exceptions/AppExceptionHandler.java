@@ -21,19 +21,21 @@ The@ControllerAdvice annotation allows us to consolidate our multiple,
 @NoArgsConstructor
 public class AppExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({StudentEmailMismatchException.class})
-    public ProblemDetail handleEmailMismatch(StudentEmailMismatchException exception){
+    public ProblemDetail handleEmailMismatch(StudentEmailMismatchException exception) {
         return ProblemDetail
-                .forStatusAndDetail(HttpStatus.NOT_FOUND, exception.getMessage());
+                .forStatusAndDetail(HttpStatus.NOT_FOUND, exception.getMessage())
+                ;
+
     }
 
     @ExceptionHandler(StudentIdMismatchException.class)
-    public ProblemDetail handleIdMismatchException(StudentIdMismatchException exception){
+    public ProblemDetail handleIdMismatchException(StudentIdMismatchException exception) {
         return ProblemDetail
                 .forStatusAndDetail(HttpStatus.NOT_FOUND, exception.getMessage());
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
-    public ProblemDetail handleConstraintViolationException(ConstraintViolationException exception){
+    public ProblemDetail handleConstraintViolationException(ConstraintViolationException exception) {
         return ProblemDetail
                 .forStatusAndDetail(HttpStatus.BAD_REQUEST, exception.getMessage());
     }

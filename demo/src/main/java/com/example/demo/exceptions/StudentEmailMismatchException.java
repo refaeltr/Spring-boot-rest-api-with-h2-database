@@ -5,6 +5,6 @@ import lombok.NoArgsConstructor;
 //@NoArgsConstructor
 public class StudentEmailMismatchException extends RuntimeException {
     public StudentEmailMismatchException() {
-        super("my error: email mismatch");
+        super("my error: this email is taken");
     }
 }
