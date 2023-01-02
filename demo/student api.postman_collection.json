@@ -1,0 +1,195 @@
+{
+	"info": {
+		"_postman_id": "333e199e-bc95-46ef-acbe-15ce0c1a7559",
+		"name": "student api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24753351"
+	},
+	"item": [
+		{
+			"name": "get all students",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Hogwarts/api/v1/students",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Hogwarts",
+						"api",
+						"v1",
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add student",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"inigo montoya\",\r\n    \"email\": \"inigo@montoya1.com\",\r\n    \"dob\": \"1987-09-10\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/Hogwarts/api/v1/addStudent",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Hogwarts",
+						"api",
+						"v1",
+						"addStudent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete student",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Hogwarts/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Hogwarts",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update student name",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Hogwarts/api/v1/updateName/1?name=mohamaddddd",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Hogwarts",
+						"api",
+						"v1",
+						"updateName",
+						"1"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "mohamaddddd"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add list of students",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\r\n    \"name\": \"inigo montoya\",\r\n    \"email\": \"inigo@montoya.com\",\r\n    \"dob\": \"1987-09-10\"\r\n},\r\n{\r\n    \"name\": \"Pete Maverick Mitchell\",\r\n    \"email\": \"Maverick@Mitchell.com\",\r\n    \"dob\": \"1986-05-16\"\r\n},\r\n{\r\n    \"name\": \"Nick Goose Bradshaw\",\r\n    \"email\": \"Goose@Bradshaw.com\",\r\n    \"dob\": \"1986-05-16\"\r\n}]\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/Hogwarts/api/v1/addStudents",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Hogwarts",
+						"api",
+						"v1",
+						"addStudents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update student email",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Hogwarts/api/v1/updateEmail/1?email=mohamad@gmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Hogwarts",
+						"api",
+						"v1",
+						"updateEmail",
+						"1"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "mohamad@gmail.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get student",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Hogwarts/api/v1/student/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Hogwarts",
+						"api",
+						"v1",
+						"student",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
