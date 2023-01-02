@@ -96,12 +96,6 @@ class StudentServiceTest {
 
     }
 
-    @Disabled
-    @Test
-    void addStudents() {
-    }
-
-
     @Test
     void canDeleteStudentId() {
         //given
@@ -126,8 +120,4 @@ class StudentServiceTest {
 
     }
 
-    @Disabled
-    @Test
-    void updateStudent() {
-    }
 }

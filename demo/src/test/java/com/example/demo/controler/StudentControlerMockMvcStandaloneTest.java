@@ -14,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ProblemDetail;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -90,7 +91,11 @@ public class StudentControlerMockMvcStandaloneTest {
 
         // then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
-        assertThat(response.getContentAsString()).isEqualTo("my error: id is not in the database");
+        ObjectMapper mapper = new ObjectMapper();
+        ProblemDetail detail = mapper.readValue(response.getContentAsString(),ProblemDetail.class);
+        assertThat(detail.getDetail().equals("my error: this ID is already in the system"));
+        //assertThat(response.getContentAsString()).isEqualTo("my error: this ID is already in the system");
+
     }
 
 
@@ -98,7 +103,7 @@ public class StudentControlerMockMvcStandaloneTest {
     public void canCreateANewStudent() throws Exception {
         // when
         MockHttpServletResponse response = mvc.perform(
-                post("/Hogwarts/api/v1/student")
+                post("/Hogwarts/api/v1/addStudent")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(
                                 jsonStudent.write(new Student("elizabeth", "elizabeth@gmail.com",
