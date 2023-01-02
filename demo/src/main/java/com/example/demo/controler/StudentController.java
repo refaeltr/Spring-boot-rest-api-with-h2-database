@@ -39,7 +39,7 @@ public class StudentController {
         studentService.addStudents(students);
     }
 
-    @DeleteMapping(path = "/{studentId}")
+    @DeleteMapping(path = "/api/v1/student/{studentId}")
     public void deleteStudent(@PathVariable("studentId") Long studentId) {
         studentService.deleteStudentId(studentId);
     }
