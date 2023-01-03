@@ -11,13 +11,13 @@ This project can run on a container.
 - Spring boot
 - H2 Embedded Database
 - Docker
-```html
+
 ## Operating Instructions
 For running the API server on a container use the commands:<br />
 1.maven package.<br />
-2.run: docker build -t <tag> <br />
-3.run: docker run -p <container port:host port> <tag> <br />
-```
+2.run: run docker build -t <tag> <br />
+3.run: run docker run -p <container port:host port> <tag> <br />
+
 ## Testing
 You can use [postamn](https://www.postman.com/) for testing the api.<br/>
 There is a [postman collction file](https://github.com/refaeltr/Spring-boot-rest-api-with-h2-database/blob/master/demo/student%20api.postman_collection.json) 
