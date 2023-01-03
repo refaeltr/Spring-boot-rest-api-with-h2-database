@@ -4,7 +4,6 @@ import com.example.demo.model.Student;
 import com.example.demo.service.StudentService;
 import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
